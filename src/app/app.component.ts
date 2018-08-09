@@ -20,7 +20,7 @@ export class AppComponent implements AfterViewInit{
           this.moveToSlide(id)
         })
       });
-    }, 100);
+    }, 0);
 
   }
 
