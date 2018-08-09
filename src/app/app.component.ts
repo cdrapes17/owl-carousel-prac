@@ -1,5 +1,5 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import {OwlCarousel} from 'ngx-owl-carousel';
+import { OwlCarousel } from 'ngx-owl-carousel';
 
 
 @Component({
@@ -7,10 +7,23 @@ import {OwlCarousel} from 'ngx-owl-carousel';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements AfterViewInit{
   ngAfterViewInit(): void {
-  //   this.owlElement.trigger('play.owl.autoplay')
+    // find all slides
+    setTimeout(() => {
+      const slides = Array.from(document.querySelectorAll('.item'));
+      slides.forEach(element => {
+        const id=element.id.split('-')[1]
+        element.addEventListener('click', () => {
+          console.log('from comp');
+          
+          this.moveToSlide(id)
+        })
+      });
+    }, 100);
+
   }
+
   @ViewChild('owlElement') owlElement: OwlCarousel
 
   title = 'app';
@@ -49,4 +62,13 @@ export class AppComponent implements AfterViewInit {
       description: `8.`
     },
   ];
+
+  moveToSlide(index) {
+    console.log(index);
+    this.owlElement.trigger('to.owl.carousel', index);
+  }
+
+  clicked(){
+    alert('hi')
+  }
 }

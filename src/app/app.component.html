@@ -1,10 +1,13 @@
-<owl-carousel #owlElement [options]="{items: 5, dots: true, nav: true, loop: true, center: true, autoplay: true, margin: 20, autoplayHoverPause: true, autoplayTimeout: 2000}"
+<owl-carousel #owlElement
+              [options]="{items: 5, dots: true, nav: true, loop: true, margin: 20, slideBy: 1, autoplay: true, autoplayHoverPause: true, autoplayTimeout: 2000, center: true}"
               [items]="images"
               [carouselClasses]="['owl-theme', 'row', 'sliding']">
-  <div class="item"
-       *ngFor="let image of images;let i = index">
-    <div class="thumbnail-image"
-    
-         ><img src="{{image.url}}"></div>
+  <div class="item" 
+       *ngFor="let image of images;let i = index"
+       id="slide-{{i}}">
+    <div class="thumbnail-image" >
+      <img src="{{image.url}}">
+      <span>{{i}}</span>
+    </div>
   </div>
 </owl-carousel>
