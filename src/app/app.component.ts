@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { OwlCarousel } from 'ngx-owl-carousel';
 
 
@@ -7,26 +7,19 @@ import { OwlCarousel } from 'ngx-owl-carousel';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterViewInit{
-  ngAfterViewInit(): void {
-    // find all slides
-    setTimeout(() => {
-      const slides = Array.from(document.querySelectorAll('.item'));
-      slides.forEach(element => {
-        const id=element.id.split('-')[1]
-        element.addEventListener('click', () => {
-          console.log('from comp');
-          
-          this.moveToSlide(id)
-        })
-      });
-    }, 0);
+export class AppComponent implements AfterViewInit, OnInit {
 
-  }
+
 
   @ViewChild('owlElement') owlElement: OwlCarousel
 
   title = 'app';
+  firstImage = [
+    {
+      url: '../assets/ozil.jpg',
+      description: 'mad tekkers'
+    }
+  ]
 
   images = [
     {
@@ -68,7 +61,21 @@ export class AppComponent implements AfterViewInit{
     this.owlElement.trigger('to.owl.carousel', index);
   }
 
-  clicked(){
-    alert('hi')
+  ngOnInit(): void {
+    this.images.unshift(this.firstImage[0])
+  }
+
+  ngAfterViewInit(): void {
+    // find all slides
+    setTimeout(() => {
+      const slides = Array.from(document.querySelectorAll('.item'));
+      slides.forEach(element => {
+        const id = element.id.split('-')[1]
+        element.addEventListener('click', () => {
+          console.log('from comp');
+          this.moveToSlide(id)
+        })
+      });
+    }, 0);
   }
 }
