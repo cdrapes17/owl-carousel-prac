@@ -1,12 +1,13 @@
 import { Component, ViewChild, AfterViewInit, OnInit, Input } from '@angular/core';
 import { OwlCarousel } from 'ngx-owl-carousel';
+import { CarouselComponent } from './carousel/carousel.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
 
   firstImage = [
     {
@@ -130,40 +131,43 @@ export class AppComponent implements OnInit, AfterViewInit {
   options2 = {
     items: 7, dots: false, nav: false, loop: true, margin: 20, slideBy: 1, center: true
   }
-  @ViewChild('carousel1') carousel1: OwlCarousel;
-  @ViewChild('carousel2') carousel2: OwlCarousel;
+  carousels: Array<CarouselComponent>
+  @ViewChild('carousel1') carousel1: CarouselComponent;
+  @ViewChild('carousel2') carousel2: CarouselComponent;
 
   carousel1Id = 'carousel1';
   carousel2Id = 'carousel2';
 
   ngOnInit(): void {
     // add first image to beginning of input images
-    this.images.unshift(this.firstImage[0]);
-    this.images2.unshift(this.firstImageRamsey[0]);
+    // this.images.unshift(this.firstImage[0]);
+    // this.images2.unshift(this.firstImageRamsey[0]);
+
+    // this.populateCarousels(this.carousels, [this.carousel1, this.carousel2])
+    this.carousels = [this.carousel1, this.carousel2]
+    console.log(this.carousels);
+
   }
 
-  moveToSlide(index) {
-    console.log(index);
-    const carousel = index.split('-');
+  moveToSlide(index: Array<any>, carousel: CarouselComponent) {
+    // find correct carousel
     console.log(carousel);
-    carousel[0] === 'carousel1' ? this.carousel1.trigger('to.owl.carousel', carousel[1]) : this.carousel2.trigger('to.owl.carousel', carousel[1]);
-    
+    console.log(index);
+    // temp fix for double call
+    if (carousel) return carousel.owlElement.trigger('to.owl.carousel', index[1]);
+    // return carousel.owlElement.trigger('to.owl.carousel', index[1])
+    // make generic
+    // index[0] === 'carousel1' ? this.carousel1.owlElement.trigger('to.owl.carousel', index[1]) : this.carousel2.owlElement.trigger('to.owl.carousel', index[1]);
   }
 
-  ngAfterViewInit(): void {
-    // setTimeout as temp fix for race condition
-    setTimeout(() => {
-      // find all slides
-      const slides = Array.from(document.querySelectorAll('.item'));
-      // for all slides add move to slide when clicked
-      slides.forEach(element => {
-        const id = element.id.split('-')[1]
-        element.addEventListener('click', () => {
-          console.log('from comp', element);
-          this.moveToSlide(element.id);
-        })
-      });
-    }, 0);
+  findCarousel(carousels: Array<CarouselComponent>, index) {
+    console.log(index);
+    
+    const carousel = carousels.find((carousel) => {
+      console.log(carousel)
+      return carousel.id === index[0];
+    });
+    return carousel;
   }
 
 }

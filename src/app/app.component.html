@@ -1,9 +1,17 @@
-<!-- <app-carousel [images]="images" [firstImage]="firstImage" [id]="carousel1Id" [options]="options1"></app-carousel>
-<app-carousel [images]="images2" [firstImage]="firstImageRamsey" [id]="carousel2Id" [options]="options2"></app-carousel> -->
+<app-carousel #carousel1
+              [images]="images"
+              [firstImage]="firstImage"
+              [id]="carousel1Id"
+              [options]="options1"
+              (slideClickedEmitter)="moveToSlide($event)"></app-carousel>
+<app-carousel #carousel2
+              [images]="images2"
+              [firstImage]="firstImageRamsey"
+              [id]="carousel2Id"
+              [options]="options2"
+              (slideClickedEmitter)="moveToSlide($event, findCarousel(carousels, $event))"></app-carousel>
 
-
-
-<owl-carousel #carousel1
+<!-- <owl-carousel #carousel1
               [options]="{items: 5, dots: false, nav: false, loop: true, margin: 20, slideBy: 1, center: true}"
               [items]="images"
               [carouselClasses]="['owl-theme', 'row', 'sliding']">
@@ -29,4 +37,4 @@
       <span>{{i}}</span>
     </div>
   </div>
-</owl-carousel>
+</owl-carousel> -->
