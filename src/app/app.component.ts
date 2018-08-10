@@ -8,21 +8,20 @@ import { CarouselComponent } from './carousel/carousel.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-
+// standard images to apply for no product
   firstImage = [
     {
       url: '../assets/ozil.jpg',
       description: 'mad tekkers'
     }
   ]
-
   firstImageRamsey = [
     {
       url: '../assets/rambo.jpg',
       description: 'mad tekkers'
     }
   ]
-
+  // would get images for both carousels from store
   images = [
     {
       url: '../assets/1.png',
@@ -49,7 +48,6 @@ export class AppComponent implements OnInit {
       description: `6.`
     },
   ];
-
   images2 = [
     {
       url: '../assets/1.png',
@@ -124,13 +122,14 @@ export class AppComponent implements OnInit {
       description: `18.`
     }
   ];
-
+// pass in options for each carousel
   options1 = {
     items: 5, dots: false, nav: false, loop: true, margin: 20, slideBy: 1, center: true
   };
   options2 = {
     items: 7, dots: false, nav: false, loop: true, margin: 20, slideBy: 1, center: true
   }
+  // store carousels in array
   carousels: Array<CarouselComponent>
   @ViewChild('carousel1') carousel1: CarouselComponent;
   @ViewChild('carousel2') carousel2: CarouselComponent;
@@ -139,35 +138,18 @@ export class AppComponent implements OnInit {
   carousel2Id = 'carousel2';
 
   ngOnInit(): void {
-    // add first image to beginning of input images
-    // this.images.unshift(this.firstImage[0]);
-    // this.images2.unshift(this.firstImageRamsey[0]);
-
-    // this.populateCarousels(this.carousels, [this.carousel1, this.carousel2])
-    this.carousels = [this.carousel1, this.carousel2]
-    console.log(this.carousels);
-
+    // store carousels
+    this.carousels = [this.carousel1, this.carousel2];
   }
 
   moveToSlide(index: Array<any>, carousel: CarouselComponent) {
-    // find correct carousel
-    console.log(carousel);
-    console.log(index);
     // temp fix for double call
     if (carousel) return carousel.owlElement.trigger('to.owl.carousel', index[1]);
-    // return carousel.owlElement.trigger('to.owl.carousel', index[1])
-    // make generic
-    // index[0] === 'carousel1' ? this.carousel1.owlElement.trigger('to.owl.carousel', index[1]) : this.carousel2.owlElement.trigger('to.owl.carousel', index[1]);
   }
 
   findCarousel(carousels: Array<CarouselComponent>, index) {
-    console.log(index);
-    
-    const carousel = carousels.find((carousel) => {
-      console.log(carousel)
-      return carousel.id === index[0];
-    });
-    return carousel;
+    // find correlating carousel
+    return carousels.find((carousel) => carousel.id === index[0]);
   }
 
 }

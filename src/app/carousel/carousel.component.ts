@@ -8,25 +8,25 @@ import { OwlCarousel } from '../../../node_modules/ngx-owl-carousel';
 })
 export class CarouselComponent implements OnInit, AfterViewInit {
 
+  // needed to use owlCarousel callbacks
   @ViewChild('owlElement') owlElement: OwlCarousel
+  // no product image added to start of array
   @Input() firstImage;
+  // images (this should come from store)
   @Input() images;
+  // id to grab specific carousel
   @Input() id;
+  // Owl Carousel options
   @Input() options;
+  // slide click emitter
   @Output() slideClickedEmitter = new EventEmitter();
 
   ngOnInit(): void {
     // add first image to beginning of input images
-    console.log(this.id, 'from cont');
-    
     this.images.unshift(this.firstImage[0]);
   }
 
-  // moveToSlide(index) {
-  //   console.log(index);
-  //   this.owlElement.trigger('to.owl.carousel', index);
-  // }
-
+  // method required to add click event to cloned items as well as slides from array
   ngAfterViewInit(): void {
     // setTimeout as temp fix for race condition
     setTimeout(() => {
