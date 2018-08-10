@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 import { OwlModule } from 'ngx-owl-carousel';
 
 import { AppComponent } from './app.component';
+import { CarouselComponent } from './carousel/carousel.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,

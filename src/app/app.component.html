@@ -1,10 +1,29 @@
-<owl-carousel #owlElement
+<!-- <app-carousel [images]="images" [firstImage]="firstImage" [id]="carousel1Id" [options]="options1"></app-carousel>
+<app-carousel [images]="images2" [firstImage]="firstImageRamsey" [id]="carousel2Id" [options]="options2"></app-carousel> -->
+
+
+
+<owl-carousel #carousel1
               [options]="{items: 5, dots: false, nav: false, loop: true, margin: 20, slideBy: 1, center: true}"
               [items]="images"
               [carouselClasses]="['owl-theme', 'row', 'sliding']">
   <div class="item"
        *ngFor="let image of images;let i = index"
-       id="slide-{{i}}">
+       id="carousel1-{{i}}">
+    <div class="thumbnail-image">
+      <img src="{{image.url}}">
+      <span>{{i}}</span>
+    </div>
+  </div>
+</owl-carousel>
+
+<owl-carousel #carousel2
+              [options]="{items: 7, dots: false, nav: false, loop: true, margin: 20, slideBy: 1, center: true}"
+              [items]="images2"
+              [carouselClasses]="['owl-theme', 'row', 'sliding']">
+  <div class="item"
+       *ngFor="let image of images2;let i = index"
+       id="carousel2-{{i}}">
     <div class="thumbnail-image">
       <img src="{{image.url}}">
       <span>{{i}}</span>
